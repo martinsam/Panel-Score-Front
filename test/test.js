@@ -60,13 +60,98 @@ describe('Point', function(){
 			assert.equal(true, [1,2].equals(point.get_score(1,2)));
 		})
 	})
+
+	describe("add point", function(){
+		it('should return 2 when add point to first player',function(){
+			point.add_point_first();
+			assert.equal(2, point.get_score()[0]);
+		})
+		it('should return 3 when add point to second player',function(){
+			point.add_point_first();
+			assert.equal(3, point.get_score()[0]);
+		})
+	})
 })
 
 describe('Set',function(){
 	set = new Set();
 	describe("is_end", function(){
-		it('sould return 0 when set is not over', function(){
-			assert.equal(0, set.is_end());
+		it('sould return false when set is not over (0 - 0)', function(){
+			assert.equal(false, set.is_end());
+		})
+		
+		it('sould return false when set is not over (10 - 11)', function(){
+			set.point = new Point(10,11);
+			assert.equal(false, set.is_end());
+		})
+
+		it('sould return false when set is not over (11 - 10)', function(){
+			set.point = new Point(11,10);
+			assert.equal(false, set.is_end());
+		})
+
+		it('sould return false when set is not over (13 - 14)', function(){
+			set.point = new Point(13,14);
+			assert.equal(false, set.is_end());
+		})
+
+		it('sould return false when set is not over (14 - 13)', function(){
+			set.point = new Point(14,13);
+			assert.equal(false, set.is_end());
+		})
+
+		it('should return true when set is over (11 - 0)', function(){
+			set.point = new Point(11,0);
+			assert.equal(true, set.is_end());
+		})
+
+		it('should return true when set is over (0 - 11)', function(){
+			set.point = new Point(0,11);
+			assert.equal(true, set.is_end());
+		})
+
+		it('should return true when set is over (11 - 9)', function(){
+			set.point = new Point(11,9);
+			assert.equal(true, set.is_end());
+		})
+
+		it('should return true when set is over (9 - 11)', function(){
+			set.point = new Point(9,11);
+			assert.equal(true, set.is_end());
+		})
+
+		it('should return true when set is over (19 - 17)', function(){
+			set.point = new Point(19,17);
+			assert.equal(true, set.is_end());
+		})
+	})
+	describe("get_score", function(){
+		it('should return [0,0] when Set is init', function(){
+			set.point = new Point(0,0);
+			assert.equal(0, set.get_score()[0]);
+			assert.equal(0, set.get_score()[1]);
+			assert.equal(true, [0,0].equals(set.get_score()));
+			assert.equal(set.point.get_score(), set.get_score());
+		})
+	})
+	describe("first_is_winner", function(){
+		it('should return true when player 1 is winner (11 - 0)', function(){
+			set.point = new Point(11,0);
+			assert.equal(true, set.first_is_winner());
+		})
+		it('should return false when player 1 is looser (0 - 11)', function(){
+			set.point = new Point(0,11);
+			assert.equal(false, set.first_is_winner());
+		})
+		it('should return undefined when set is not over (2 - 10)', function(){
+			set.point = new Point(2,10);
+			assert.equal(undefined, set.first_is_winner());
+		})
+	})
+
+	describe("display_score", function(){
+		it('should ...', function(){
+			
 		})
 	})
 })
