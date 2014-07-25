@@ -7,16 +7,6 @@ var path  = "../lib/game.js";
 var code = fs.readFileSync(path);
 vm.runInThisContext(code);
 
-// describe('Array', function(){
-//   describe('#indexOf()', function(){
-//     it('should return -1 when the value is not present', function(){
-//       assert.equal(-1, [1,2,3].indexOf(5));
-//       assert.equal(-1, [1,2,3].indexOf(0));
-//     })
-//   })
-// })
-
-
 // attach the .equals method to Array's prototype to call it on any array
 Array.prototype.equals = function (array) {
     // if the other array is a falsy value, return
@@ -57,7 +47,7 @@ describe('Point', function(){
 			point = new Point(1,2);
 			assert.equal(1, point.get_score()[0]);
 			assert.equal(2, point.get_score()[1]);
-			assert.equal(true, [1,2].equals(point.get_score(1,2)));
+			assert.equal(true, [1,2].equals(point.get_score()));
 		})
 	})
 
@@ -133,6 +123,14 @@ describe('Set',function(){
 			assert.equal(true, [0,0].equals(set.get_score()));
 			assert.equal(set.point.get_score(), set.get_score());
 		})
+
+		it('should return [10,2]', function(){
+			set.point = new Point(10,2);
+			assert.equal(10, set.get_score()[0]);
+			assert.equal(2, set.get_score()[1]);
+			assert.equal(true, [10,2].equals(set.get_score()));
+			assert.equal(set.point.get_score(), set.get_score());
+		})
 	})
 	describe("first_is_winner", function(){
 		it('should return true when player 1 is winner (11 - 0)', function(){
@@ -150,8 +148,20 @@ describe('Set',function(){
 	})
 
 	describe("display_score", function(){
-		it('should ...', function(){
-			
+		it('should return 5 when player 1 win with (11 - 5)', function(){
+			set.point = new Point(11, 5);
+			assert.equal(5, set.display_score());	
+		})
+		it('should return -5 when player 2 win with (5 - 11)', function(){
+			set.point = new Point(5, 11);
+			assert.equal(-5, set.display_score());	
+		})
+
+		it('should return undefined when set is not over', function(){
+			set.point = new Point(5, 10);
+			assert.equal(undefined, set.display_score());
+			set.point = new Point(10, 5);
+			assert.equal(undefined, set.display_score());	
 		})
 	})
 })
