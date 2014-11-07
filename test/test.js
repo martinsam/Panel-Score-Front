@@ -165,3 +165,27 @@ describe('Set',function(){
 		})
 	})
 })
+
+
+
+describe("Match",function(){
+	match = new Match();
+	describe("is_end",function(){
+		it('should return True if player 1  win with (3-0)',function(){
+			match.point = new  Point(3, 0);
+			assert.equal(true, match.is_end());
+		})
+		it('should return True if player 1  loose with (0-3)',function(){
+			match.point = new  Point(0, 3);
+			assert.equal(true, match.is_end());
+		})
+		it('should return True if player 1  win with (5-3)',function(){
+			match.point = new  Point(5, 3);
+			assert.equal(true, match.is_end());
+		})
+		it('should return True if player 1  loose with (3-5)',function(){
+			match.point = new  Point(3, 5);
+			assert.equal(true, match.is_end());
+		})
+	})
+})
